@@ -10,9 +10,7 @@ cd Weather-TG-Bot
 pip3 install -r requirements.txt
 ```
 
-{% hint style="info" %}
- Before start bot you need to paste your api\`s install config.py
-{% endhint %}
+Before start bot you need to paste your api\`s install config.py
 
 After full setup you can run bot or only service
 
