@@ -31,7 +31,6 @@ async def weather_cmd(message: types.Message):
         r = requests.get(
             f"https://api.openweathermap.org/data/2.5/weather?q={message.text}&appid={weather_token}&units=metric&lang=ru")
         data = r.json()
-        city_name = data['name']
         main_weather = data['weather'][0]['main']
         if main_weather in code_to_smile:
             wd = code_to_smile[main_weather]
@@ -44,6 +43,7 @@ async def weather_cmd(message: types.Message):
         humidity = data['main']['humidity']
         sunrise = datetime.datetime.fromtimestamp(data['sys']['sunrise'])
         sunset = datetime.datetime.fromtimestamp(data['sys']['sunset'])
+        timezone = data['timezone'] / 3600
         await message.reply(
             f"***{datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}***" + "\n" +
             f"Погода: {wd} \n" +
@@ -52,6 +52,7 @@ async def weather_cmd(message: types.Message):
             f"Ветер: {wind} м/с \n" +
             f"Давление: {pressure} мм.рт.ст \n" +
             f"Влажность: {humidity}% \n" +
+            f"Часовой пояс: GMT +{timezone} \n" +
             f"Восход: {sunrise} \n" +
             f"Закат: {sunset} \n" +
             "Хорошего вам дня! \U0001F600")

@@ -18,7 +18,6 @@ def get_weather(city, weather_token):
     try:
         r = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={weather_token}&units=metric&lang=ru")
         data = r.json()
-        city_name = data['name']
         main_weather = data['weather'][0]['main']
         if main_weather in code_to_smile:
             wd = code_to_smile[main_weather]
@@ -31,6 +30,7 @@ def get_weather(city, weather_token):
         humidity = data['main']['humidity']
         sunrise = datetime.datetime.fromtimestamp(data['sys']['sunrise'])
         sunset = datetime.datetime.fromtimestamp(data['sys']['sunset'])
+        timezone = data['timezone'] / 3600
         print(f"***{datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}***" + "\n" +
               f"Погода: {wd} \n" +
               f"Температура: {temp} C° \n" +
@@ -38,6 +38,7 @@ def get_weather(city, weather_token):
               f"Ветер: {wind} м/с \n" +
               f"Давление: {pressure} мм.рт.ст \n" +
               f"Влажность: {humidity}% \n" +
+              f"Часовой пояс: GMT +{timezone} \n" +
               f"Восход: {sunrise} \n" +
               f"Закат: {sunset} \n" +
               "Хорошего вам дня! \U0001F600")
