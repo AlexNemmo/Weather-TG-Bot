@@ -19,10 +19,8 @@ def get_weather(city, weather_token):
     }
 
     try:
-        r = requests.get(
-            f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={weather_token}&units=metric&lang=ru")
+        r = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={weather_token}&units=metric&lang=ru")
         data = r.json()
-        # pprint(data)
         city = data["name"]
         main_weather = data['weather'][0]['main']
         if main_weather in code_to_smile:
@@ -48,7 +46,6 @@ def get_weather(city, weather_token):
               f"Закат: {sunset} \n" +
               "Хорошего вам дня! \U0001F600")
     except Exception as ex:
-        # print(ex)
         print("Проверьте название города!")
 
 
